@@ -2,6 +2,7 @@ import csv
 import math
 import random
 import json
+from typing import Optional
 
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
@@ -13,7 +14,7 @@ def search_button_node(nodes: dict[str, dict], node_id: str) -> dict:
                 yield node
 
 
-def search_node(nodes: dict[str, dict], node_id: str) -> dict | None:
+def search_node(nodes: dict[str, dict], node_id: str) -> Optional[dict]:
     return nodes.get(node_id)
 
 
@@ -74,7 +75,7 @@ def load_settings(file_uploaded: UploadedFile):
     return settings
 
 
-def create_tree(zoho_report: UploadedFile, zingtree_json: UploadedFile | None = None):
+def create_tree(zoho_report: UploadedFile, zingtree_json: Optional[UploadedFile] = None):
 
     if zingtree_json is None:
         with open('example.json', 'r') as fp:
