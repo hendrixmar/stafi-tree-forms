@@ -59,7 +59,8 @@ def match_name(
 ) -> str:
     positions = {
         "1. May I kindly ask in which city and state is the applicant's currently residing?": '39',
-     "2. What is the applicant's date of birth?": '40', '3. Which country was the applicant born in?': '41',
+     "2. What is the applicant's date of birth?": '40',
+        '3. Which country was the applicant born in?': '41',
      '4. When did the applicant first enter the United States?': '42',
      "5. When was the applicant's most recent entry into the United States?": '70',
      '6. How did the applicant last enter the United States?': '44',
