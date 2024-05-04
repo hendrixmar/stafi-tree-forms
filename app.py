@@ -4,6 +4,7 @@ import streamlit as st
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
 from main import create_tree
+from zingtree_final import run_script
 
 
 def _max_width_():
@@ -41,7 +42,8 @@ with c30:
     if len(uploaded_file) >= 1:
         files = {element.type: element for element in uploaded_file}
 
-        if 'text/csv' in files:
+        # in intake form questionaire
+        if 'text/csv' in files and False:
             file_container = st.expander("Check your uploaded .csv")
 
             result = create_tree(
@@ -49,6 +51,14 @@ with c30:
                 files.get('application/json')
             )
             href = st.download_button(data=json.dumps(result), file_name='zintree_form.json', label='Download')
+
+        elif 'text/csv' in files:
+            file_container = st.expander("Check your uploaded .csv")
+            raw_data: UploadedFile = files.get('text/csv')
+            result, file_name = run_script(raw_data.read())
+
+            href = st.download_button(data=result, file_name=file_name, label='Download')
+
         else:
             st.info(
                 f"""
