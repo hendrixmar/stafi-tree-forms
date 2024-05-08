@@ -170,16 +170,50 @@ class ZohoLoader:
 
         output["Which areas of Law do you Practice?"] = output["Which areas of Law do you Practice?"].split('\n')
         output["Which areas of Law do you Practice?"] = [e for e in output["Which areas of Law do you Practice?"] if e]
-        output["intro"] = """E: Hi! Thank you for calling {law_firm}. My name is #agent_name#. 
-        
-How can I assist you today?
 
-Identify the subject of the call..
 
-S: ¡Hola! Gracias por llamar a {law_firm}. Mi nombre es #agent_name#.
-
-¿Cómo puedo ayudarle hoy?
-        """.format(law_firm=output["Law Firm"])
+        output["intro"] = (
+        r"<p style='box-sizing: border-box; margin: 0px 0px 20px; color: rgb(68, 50, 94); font-family: Roboto, "
+         r"\"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; "
+         r"font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; "
+         r"orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; "
+         r"-webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(245, 245, "
+         r"245); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: "
+         r"initial;'><strong><span style=\"color: rgb(255, 0, 0); font-size: 24px;\">&nbsp;{law_firm} [Reception &amp; "
+         r"Intake] [CDT]<\/span><\/strong><\/p><p id=\"isPasted\" style='box-sizing: border-box; margin: 0px 0px 20px; "
+         r"color: rgb(68, 50, 94); font-family: Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: "
+         r"18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; "
+         r"letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; "
+         r"word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(245, 245, "
+         r"245); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: "
+         r"initial;'><span style=\"box-sizing: border-box; font-size: 18px; font-family: Verdana, Geneva, sans-serif; "
+         r"color: rgb(0, 0, 0);\"><span id=\"isPasted\" style=\"font-size: 24px; font-family: Verdana, Geneva, "
+         r"sans-serif; color: rgb(0, 0, 0);\"><strong>E:&nbsp;<\/strong><\/span><\/span><span style=\"box-sizing: "
+         r"border-box; background-color: rgb(204, 238, 255); font-size: 18px; font-family: Verdana, Geneva, "
+         r"sans-serif; color: rgb(0, 0, 0);\">Hi! Thank you for calling {law_firm} My name is "
+         r"#agent_name#.&nbsp;<\/span><\/p><p style='box-sizing: border-box; margin: 0px 0px 20px; color: rgb(68, 50, "
+         r"94); font-family: Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 18px; font-style: "
+         r"normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: "
+         r"normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: "
+         r"0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(245, 245, "
+         r"245); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: "
+         r"initial;'><span style=\"box-sizing: border-box; background-color: rgb(255, 204, 255); font-size: 18px; "
+         r"font-family: Verdana, Geneva, sans-serif; color: rgb(0, 0, 0);\">How can I assist you today?<\/span><\/p><p "
+         r"style='box-sizing: border-box; margin: 0px 0px 20px; color: rgb(68, 50, 94); font-family: Roboto, "
+         r"\"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; "
+         r"font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; "
+         r"orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; "
+         r"-webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(245, 245, "
+         r"245); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: "
+         r"initial;'><span style=\"box-sizing: border-box; font-size: 14px; color: rgb(124, 112, 107);\"><span "
+         r"style=\"box-sizing: border-box; font-family: Verdana, Geneva, sans-serif;\"><em style=\"box-sizing: "
+         r"border-box;\"><strong>Identify the subject of the call.<\/strong><\/em><\/span><\/span><\/p><p "
+         r"id=\"isPasted\"><span style=\"font-size: 24px; font-family: Verdana, Geneva, sans-serif; color: rgb(0, 0, "
+         r"0);\"><strong>S:<\/strong>&nbsp;<\/span><span style=\"font-size: 18px; font-family: Verdana, Geneva, "
+         r"sans-serif; color: rgb(0, 0, 0); background-color: rgb(187, 222, 251);\">&iexcl;Hola! Gracias por llamar a "
+         r"{law_firm} Mi nombre es&nbsp;#agent_name#.<\/span><\/p><p><span style=\"background-color: rgb(248, 187, "
+         r"208); font-size: 18px; font-family: Verdana, Geneva, sans-serif; color: rgb(0, 0, 0);\">&iquest;C&oacute;mo "
+         r"puedo ayudarle hoy?<\/span><\/p>").format(law_firm=output["Law Firm"])
 
         key = "Do you have a booking platform like Calendly so we can schedule consultations for you?"
 
@@ -379,7 +413,14 @@ def master_form(zoho_loader: ZohoLoader) -> OutputFile:
     """.format(result)
     json_template["nodes"]["1001"]["content"] = """{}""".format(point_of_contacts)
     json_template["nodes"]["1000"]["content"] = """{}""".format(general_information)
-    json_template["nodes"]["2"]["content"] = """<p>{}</p>""".format(general_information_data[1].intro)
+
+
+    with open("templates/welcome.html", "r") as fd:
+        general_information_template = Template(fd.read())
+
+    json_template["nodes"]["2"]["content"] = general_information_template.render(
+        law_firm=general_information_data[0]['Law Firm']
+    )
 
     return OutputFile(
         file_name=f"0. {general_information_data[0]['Law Firm']} - master.json",
